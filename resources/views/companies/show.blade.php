@@ -1,7 +1,6 @@
 @extends('layouts.companylayout')
 
 @section('content')
-    
 
 <table class="table text-nowrap">
     <thead>
@@ -15,17 +14,21 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>1</td>
-            <td>Deshmukh</td>
-            <td>Prohaska</td>
-            <td>www@gmail.com</td>
-            <td> <a href=""> Edit</a>
-            </td>
+        
+            @foreach ($companies as $item)
+<tr>
+            <td>{{$item->id}}</td>
+            <td>{{$item->name}}</td>
+            <td>{{$item->location}}</td>
+            <td>{{$item->email}}</td>
+            <td> <a class="btn btn-success mx-2" href=""> Edit</a></td>
             <td>
-                <a href="" style="font-color:red;">DELETE</a>
+                <a href=" {{ url('companies/create') }}" class="text-danger">DELETE</a>
             </td>
         </tr>
+                
+            @endforeach
+            
     </tbody>
 </table>
 @endsection

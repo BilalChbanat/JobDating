@@ -32,7 +32,7 @@
                     <div class="col-sm-12">
                         <div class="white-box">
                             <h3 class="box-title">Companies</h3>
-                            <a href="#" class="text-muted">Add Company</a>
+                            <a href="{{ url('companies/create') }}" class="text-muted">Add Company</a>
                             <div class="table-responsive">
                                 @yield('content')
                             </div>

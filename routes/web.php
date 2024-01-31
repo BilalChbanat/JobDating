@@ -23,6 +23,10 @@ Route::get('/', function () {
 
 Route::get('companies',[CompanyController::class,'index']);
 
+Route::get('companies/create',[CompanyController::class,'create']);
+
+Route::post('companies/create',[CompanyController::class,'store']);
+
 
 
 // Route::get('/posts/{id}', function ($id) {
