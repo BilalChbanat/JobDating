@@ -23,7 +23,7 @@
                 <td>{{$item->email}}</td>
                 <td> <a class="btn btn-success mx-2" href=" {{ url('companies/' .$item->id. '/edit') }}"> Edit</a></td>
                 <td>
-                    <a href="" class="text-danger">DELETE</a>
+                    <a onclick="return confirm('Are you sure You want to delete it?')" class="btn btn-danger mx-2" href=" {{ url('companies/' .$item->id. '/delete') }}">DELETE</a>
                 </td>
             </tr>
                 

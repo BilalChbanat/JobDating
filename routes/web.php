@@ -31,6 +31,8 @@ Route::get('companies/{id}/edit',[CompanyController::class,'edit']);
 
 Route::put('companies/{id}/edit',[CompanyController::class,'update']);
 
+Route::get('companies/{id}/delete',[CompanyController::class,'destroy']);
+
 
 
 // Route::get('/posts/{id}', function ($id) {
