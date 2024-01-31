@@ -16,16 +16,16 @@
     <tbody>
         
             @foreach ($companies as $item)
-<tr>
-            <td>{{$item->id}}</td>
-            <td>{{$item->name}}</td>
-            <td>{{$item->location}}</td>
-            <td>{{$item->email}}</td>
-            <td> <a class="btn btn-success mx-2" href=""> Edit</a></td>
-            <td>
-                <a href=" {{ url('companies/create') }}" class="text-danger">DELETE</a>
-            </td>
-        </tr>
+            <tr>
+                <td>{{$item->id}}</td>
+                <td>{{$item->name}}</td>
+                <td>{{$item->location}}</td>
+                <td>{{$item->email}}</td>
+                <td> <a class="btn btn-success mx-2" href=" {{ url('companies/' .$item->id. '/edit') }}"> Edit</a></td>
+                <td>
+                    <a href="" class="text-danger">DELETE</a>
+                </td>
+            </tr>
                 
             @endforeach
             

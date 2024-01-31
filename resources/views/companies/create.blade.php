@@ -30,6 +30,11 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
+                        @if (session('status'))
+                            <div class="alert alert-success">
+                                {{session('status')}}
+                            </div>
+                        @endif
                         <div class="white-box">
                             <h3 class="box-title">Companies</h3>
                             <a href="{{ url('companies')}}" class="text-muted">Back to dashboard</a>

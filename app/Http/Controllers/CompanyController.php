@@ -16,7 +16,7 @@ class CompanyController extends Controller
     {
         $companies = Company::get();
         return view('companies.show', compact('companies'));
-        
+
     }
 
     /**
@@ -33,16 +33,16 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' =>   'required|max:255|string',
-            'email' =>   'required|max:255|string',
-            'location' =>   'required|max:255|string',
+            'name' => 'required|max:255|string',
+            'email' => 'required|max:255|string',
+            'location' => 'required|max:255|string',
         ]);
         Company::create([
             'name' => $request->name,
             'email' => $request->email,
             'location' => $request->location,
         ]);
-        return redirect('companies/create')->with('status', 'success');
+        return redirect('companies/create')->with('status', 'Company Inserted Successfully');
     }
 
     /**
@@ -56,17 +56,28 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Company $company)
+    public function edit(int $id)
     {
-        //
+        $company = Company::findOrFail($id);
+        return view('companies.edit', compact('company'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCompanyRequest $request, Company $company)
+    public function update(Request $request, int $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255|string',
+            'email' => 'required|max:255|string',
+            'location' => 'required|max:255|string',
+        ]);
+        Company::findOrFail($id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'location' => $request->location,
+        ]);
+        return redirect()->back()->with('status', 'Company updated Successfully');
     }
 
     /**

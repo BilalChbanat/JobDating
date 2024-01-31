@@ -27,6 +27,10 @@ Route::get('companies/create',[CompanyController::class,'create']);
 
 Route::post('companies/create',[CompanyController::class,'store']);
 
+Route::get('companies/{id}/edit',[CompanyController::class,'edit']);
+
+Route::put('companies/{id}/edit',[CompanyController::class,'update']);
+
 
 
 // Route::get('/posts/{id}', function ($id) {
