@@ -6,6 +6,7 @@ use App\Models\Announcement;
 use App\Http\Requests\StoreAnnouncementRequest;
 use App\Http\Requests\UpdateAnnouncementRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class AnnouncementController extends Controller
 {
@@ -35,14 +36,14 @@ class AnnouncementController extends Controller
             'title' => 'required|max:255|string',
             'post' => 'required|max:255|string',
             'img' => 'nullable|mimes:png,jpeg,jpg,webp',
-            'description' => 'required|max:255|string',
+            'description' => 'required|string',
         ]);
 
-        if($request->has('img')){
-            
+        if ($request->has('img')) {
+
             $file = $request->file('img');
             $extension = $file->getClientOriginalExtension();
-            $fileName = time().'.'.$extension;
+            $fileName = time() . '.' . $extension;
 
             $path = 'uploads/announcements/';
             $file->move($path, $fileName);
@@ -51,7 +52,7 @@ class AnnouncementController extends Controller
         Announcement::create([
             'title' => $request->title,
             'post' => $request->post,
-            'img' => $path.$fileName,
+            'img' => $path . $fileName,
             'description' => $request->description,
         ]);
         return redirect('announcements/create')->with('status', 'Announcement has been published');
@@ -83,13 +84,30 @@ class AnnouncementController extends Controller
         $request->validate([
             'title' => 'required|max:255|string',
             'post' => 'required|max:255|string',
-            'img' => 'required|max:255|string',
+            'img' => 'nullable|mimes:png,jpeg,webp,jpg',
             'description' => 'required|max:255|string',
         ]);
-        Announcement::findOrFail($id)->update([
+
+        $announcement = Announcement::findOrFail($id);
+
+        if ($request->has('img')) {
+
+            $file = $request->file('img');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = time() . '.' . $extension;
+
+            $path = 'uploads/announcements/';
+            $file->move($path, $fileName);
+
+            if (File::exists($announcement->img)) {
+                File::delete($announcement->img);
+            }
+        }
+
+        $announcement->update([
             'title' => $request->title,
             'post' => $request->post,
-            'img' => $request->img,
+            'img' => $path . $fileName,
             'description' => $request->description,
         ]);
         return redirect()->back()->with('status', 'Announcement updated Successfully');

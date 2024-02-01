@@ -5,6 +5,7 @@
 <table class="table text-nowrap">
     <thead>
         <tr>
+            <th class="border-top-0"></th>
             <th class="border-top-0">#</th>
             <th class="border-top-0">Title</th>
             <th class="border-top-0">Post required</th>
@@ -17,6 +18,7 @@
         
             @foreach ($announcements as $item)
             <tr>
+                <td> <img style="width: 60px;height:50px;" src="{{ asset($item->img) }}" alt="img"> </td>
                 <td>{{$item->id}}</td>
                 <td>{{$item->title}}</td>
                 <td>{{$item->post}}</td>
