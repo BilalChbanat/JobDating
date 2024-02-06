@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\SkillController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
@@ -52,6 +53,22 @@ Route::get('announcements/{id}/edit', [AnnouncementController::class, 'edit'])->
 Route::put('announcements/{id}/edit', [AnnouncementController::class, 'update'])->middleware(Authenticate::class);;
 
 Route::get('announcements/{id}/delete', [AnnouncementController::class, 'destroy'])->middleware(Authenticate::class);;
+Auth::routes();
+
+
+//skills
+
+Route::get('skills', [SkillController::class, 'index'])->middleware(Authenticate::class);;
+
+Route::get('skills/create', [SkillController::class, 'create'])->middleware(Authenticate::class);;
+
+Route::post('skills/create', [SkillController::class, 'store'])->middleware(Authenticate::class);;
+
+Route::get('skills/{id}/edit', [SkillController::class, 'edit'])->middleware(Authenticate::class);;
+
+Route::put('skills/{id}/edit', [SkillController::class, 'update'])->middleware(Authenticate::class);;
+
+Route::get('skills/{id}/delete', [SkillController::class, 'destroy'])->middleware(Authenticate::class);;
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -1,6 +1,6 @@
-@extends('layouts.companylayout')
+@extends('layouts.skillslayout')
 
-@section('content')
+@section('skills')
 
 <table class="table text-nowrap">
     <thead>
