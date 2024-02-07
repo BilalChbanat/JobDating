@@ -1,13 +1,10 @@
 <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header" data-logobg="skin6">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand d-flex" href="#">
                         <b class="logo-icon">
-                            <img src="{{url('/images/logo-icon.png')}}" alt="Image"/>
+                            <img style="width:7em;" src="{{url('images/job-dating.jpg')}}" alt="Image"/>
                         </b>
-                        <span class="logo-text">
-                            
-                            <img src="{{url('/images/logo-text.png')}}" alt="Image"/>
-                        </span>
+                        
                     </a>
                     <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
                         href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
