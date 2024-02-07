@@ -16,4 +16,8 @@ class Announcement extends Model
         'img',
         'description',
     ];
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class);
+    }
 }

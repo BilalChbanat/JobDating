@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Announcement;
 use App\Http\Requests\StoreAnnouncementRequest;
 use App\Http\Requests\UpdateAnnouncementRequest;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -24,40 +25,47 @@ class AnnouncementController extends Controller
      */
     public function create()
     {
-        return view('announcements.create');
+        $skills = Skill::all();
+        return view('announcements.create', compact('skills'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|max:255|string',
             'post' => 'required|max:255|string',
             'img' => 'nullable|mimes:png,jpeg,jpg,webp',
             'description' => 'required|string',
+            'skills' => 'array', // Ensure that 'skills' is an array
         ]);
 
-        if ($request->has('img')) {
+        $path = 'uploads/announcements/';
+        $fileName = null;
 
+        if ($request->has('img')) {
             $file = $request->file('img');
             $extension = $file->getClientOriginalExtension();
             $fileName = time() . '.' . $extension;
 
-            $path = 'uploads/announcements/';
             $file->move($path, $fileName);
         }
 
-        Announcement::create([
+        $announcement = Announcement::create([
             'title' => $request->title,
             'post' => $request->post,
-            'img' => $path . $fileName,
+            'img' => $fileName ? $path . $fileName : null,
             'description' => $request->description,
         ]);
-        return redirect('announcements/create')->with('status', 'Announcement has been published');
 
+        // Associate skills with the announcement
+        $announcement->skills()->sync($request->skills);
+
+        return redirect('announcements/create')->with('status', 'Announcement has been published');
     }
+
 
     /**
      * Display the specified resource.

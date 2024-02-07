@@ -107,13 +107,9 @@
                                 <div class="form-group"><label class="labels">Skills</label>
                                     <select class="js-example-basic-multiple" name="skills[]" id="select"
                                         multiple="multiple">
-                                        {{-- @foreach ($skills as $item)
-                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
-                                        @endforeach --}}
-                                        <option value="1">test</option>
-                                        <option value="1">test</option>
-                                        <option value="1">test</option>
-                                        <option value="1">test</option>
+                                        @foreach ($skills as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
