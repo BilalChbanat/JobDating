@@ -6,6 +6,7 @@ use App\Models\Landing;
 use App\Models\Announcement;
 use App\Http\Requests\StoreLandingRequest;
 use App\Http\Requests\UpdateLandingRequest;
+use App\Models\User;
 
 class LandingController extends Controller
 {
@@ -15,8 +16,10 @@ class LandingController extends Controller
     public function index()
     {
         $announcements = Announcement::get();
-        return view('welcome', compact('announcements'));
+        $user = User::class; // This line seems unnecessary, please review it
+        return view('welcome', compact('announcements', 'user'));
     }
+
 
     /**
      * Show the form for creating a new resource.

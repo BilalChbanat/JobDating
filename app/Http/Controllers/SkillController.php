@@ -16,7 +16,7 @@ class SkillController extends Controller
     {
         $skills = Skill::get();
         return view('skills.show', compact('skills'));
-        
+
     }
 
     /**
@@ -33,7 +33,7 @@ class SkillController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:255|string',
+            'name' => 'required|max:255|string|unique:skills',
         ]);
         Skill::create([
             'name' => $request->name,
@@ -71,13 +71,13 @@ class SkillController extends Controller
             'name' => $request->name,
         ]);
         return redirect()->back()->with('status', 'Skill updated Successfully');
-    
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id) 
+    public function destroy(int $id)
     {
         $skill = Skill::findOrFail($id);
         $skill->delete();
