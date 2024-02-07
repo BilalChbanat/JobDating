@@ -30,6 +30,14 @@
                                     value="10BE , Lotun towen , England"></div>
                             <div class="col-md-12"><label class="labels">Email</label><input type="email" name="email"
                                     class="form-control" placeholder="enter email id" value="{{ $user->email }}"></div>
+                            <div class="col-md-12"><label class="labels">Skills</label>
+                                <select class="js-example-basic-multiple" name="skills[]" id="select"
+                                    multiple="multiple">
+                                    @foreach ($user->skills as $item)
+                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
 
                         <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save
