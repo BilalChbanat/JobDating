@@ -99,3 +99,9 @@ Route::resource('users', UserController::class)->only('show', 'edit', 'update', 
 ;
 
 Route::post('users/addSkills', [UserController::class, 'addSkills'])->name('users.addSkills');
+
+// routes/web.php
+
+Route::post('/announcements/apply/{announcementId}', [AnnouncementController::class, 'apply'])
+    ->middleware('auth') // This middleware ensures the user is authenticated
+    ->name('announcements.apply');

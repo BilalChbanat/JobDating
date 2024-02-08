@@ -20,4 +20,9 @@ class Announcement extends Model
     {
         return $this->belongsToMany(Skill::class);
     }
+    
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

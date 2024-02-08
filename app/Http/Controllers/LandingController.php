@@ -6,19 +6,45 @@ use App\Models\Landing;
 use App\Models\Announcement;
 use App\Http\Requests\StoreLandingRequest;
 use App\Http\Requests\UpdateLandingRequest;
+use App\Models\Skill;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class LandingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    // public function index()
+    // {
+    //     $announcements = Announcement::with('skills')->get();
+    //     $skills = Skill::all();
+    //     return view('welcome', compact('announcements', 'skills'));
+    // }
+
     public function index()
     {
-        $announcements = Announcement::get();
-        $user = User::class; // This line seems unnecessary, please review it
-        return view('welcome', compact('announcements', 'user'));
+        // Check if the user is authenticated
+        if (Auth::check()) {
+            // Get the authenticated user's skills
+            $userSkills = Auth::user()->skills->pluck('id')->toArray();
+
+            // Get announcements with matching skills
+            $announcements = Announcement::with('skills')
+                ->whereHas('skills', function ($query) use ($userSkills) {
+                    $query->whereIn('id', $userSkills);
+                })
+                ->get();
+        } else {
+            // User is not authenticated, show all announcements
+            $announcements = Announcement::all();
+        }
+
+        $skills = Skill::all();
+
+        return view('welcome', compact('announcements', 'skills'));
     }
+
 
 
     /**

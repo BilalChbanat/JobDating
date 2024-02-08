@@ -47,4 +47,8 @@ class User extends Authenticatable
     public function skills(){
         return $this->belongsToMany(Skill::class);
     }
+    
+    public function announcements(){
+        return $this->belongsToMany(Announcement::class);
+    }
 }

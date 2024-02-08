@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAnnouncementRequest;
 use App\Http\Requests\UpdateAnnouncementRequest;
 use App\Models\Skill;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class AnnouncementController extends Controller
@@ -39,7 +40,7 @@ class AnnouncementController extends Controller
             'post' => 'required|max:255|string',
             'img' => 'nullable|mimes:png,jpeg,jpg,webp',
             'description' => 'required|string',
-            'skills' => 'array', // Ensure that 'skills' is an array
+            'skills' => 'array',
         ]);
 
         $path = 'uploads/announcements/';
@@ -132,5 +133,22 @@ class AnnouncementController extends Controller
 
         return redirect()->back()->with('status', 'Announcement Deleted Successfully');
 
+    }
+
+    public function apply(int $announcementId)
+    {
+        // Ensure the user is authenticated
+        if (Auth::check()) {
+            $user = Auth::user();
+            $announcement = Announcement::findOrFail($announcementId);
+
+            // Attach the authenticated user to the announcement
+            $user->announcements()->attach($announcement);
+
+            return redirect()->back()->with('status', 'Application submitted successfully');
+        }
+
+        // Redirect to login if the user is not authenticated
+        return redirect()->route('login')->with('status', 'Please login to apply');
     }
 }

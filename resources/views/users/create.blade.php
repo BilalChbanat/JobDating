@@ -11,7 +11,7 @@
                         <h4 class="text-right">Add skill</h4>
                     </div>
                     <div class="row mt-2">
-                        <a class="nav-link" href="{{ url('users/') }}">Back to profile
+                        <a class="nav-link" href="{{ url('users/e') }}">Back to profile
                         </a>
                     </div>
                     @if (session('status'))
