@@ -33,13 +33,12 @@
                             <div class="col-md-12"><label class="labels">Skills</label>
                                 <select class="js-example-basic-multiple" name="skills[]" id="select"
                                     multiple="multiple">
-                                    @foreach ($user->skills as $item)
+                                    @foreach ($skills as $item)
                                         <option value="{{ $item->name }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-
                         <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save
                                 Profile</button></div>
                     </div>

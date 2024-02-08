@@ -94,6 +94,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //User
 
-Route::resource('users', UserController::class)->only('show', 'edit', 'update')->middleware('auth');
+Route::resource('users', UserController::class)->only('show', 'edit', 'update', 'create')->middleware('auth');
 ;
 ;
+
+Route::post('users/addSkills', [UserController::class, 'addSkills'])->name('users.addSkills');

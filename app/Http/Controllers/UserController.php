@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    public function create()
+    {
+        $skills = Skill::all();
+        return view('users.create', compact('skills'));
+    }
 
     /**
      * Display the specified resource.
@@ -21,12 +28,13 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $skills = Skill::all();
+        return view('users.edit', compact('user', 'skills'));
     }
 
     /**
      * Update the specified resource in storage.
-     */
+     */ 
     public function update(Request $request, User $user)
     {
         $request->validate([
@@ -37,13 +45,27 @@ class UserController extends Controller
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
+
         ]);
 
         return redirect()->back()->with('status', 'Profile updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
+    public function addSkills(Request $request)
+    {
+        $request->validate([
+            'skills' => 'array',
+        ]);
+
+        $user = User::findOrFail($request->user_id);
+
+        // Associate skills with the User
+        $user->skills()->sync($request->skills);
+
+        return redirect()->back()->with('status', 'Skills added successfully');
+    }
+
+
 
 }

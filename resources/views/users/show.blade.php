@@ -19,8 +19,8 @@
                             skills</a>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-md-6"><label class="labels">{{ $user->name }}</label> <span class="form-control">
-                                Bilal Chbanat</span></div>
+                        <div class="col-md-6"><label class="labels">Name</label> <span class="form-control">
+                                {{ $user->name }}</span></div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-12"><label class="labels">Mobile Number</label><span class="form-control">
@@ -35,12 +35,13 @@
                                     {{ $item->name }} ,
                                 @endforeach
                             </span></div>
+                        <div class=" mt-2">
+                            <a class="btn btn-primary" href="{{ url('users/create') }}">Add skills</a>
+                        </div>
                     </div>
                 </div>
             </div>
 
         </div>
-    </div>
-    </div>
     </div>
 @endsection

@@ -48,7 +48,7 @@
     <div id="app">
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
-                <a class="navbar-brand" href="#!"><img style="width: 6em" src="{{ url('images/job-dating.jpg') }}"
+                <a class="navbar-brand" href="/"><img style="width: 6em" src="{{ url('images/job-dating.jpg') }}"
                         alt=""> </a>
                 <div class="d-flex p-2 list-unstyled">
                     @guest
