@@ -17,8 +17,11 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
+        $requiredskill = Skill::withCount('announcements')->orderByDesc('announcements_count')->first();
+        $skill = $requiredskill->skill;
+
         $announcements = Announcement::get();
-        return view('announcements.show', compact('announcements'));
+        return view('announcements.show', compact('announcements','skill'));
     }
 
     /**
@@ -151,4 +154,5 @@ class AnnouncementController extends Controller
         // Redirect to login if the user is not authenticated
         return redirect()->route('login')->with('status', 'Please login to apply');
     }
-}
+
+    }

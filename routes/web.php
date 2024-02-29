@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\ApplyHistoriqueController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\SkillController;
@@ -98,6 +99,8 @@ Route::resource('users', UserController::class)->only('show', 'edit', 'update', 
 ;
 ;
 
+Route::get('/application', [ApplyHistoriqueController::class, 'index'])->name('historique');
+
 Route::post('users/addSkills', [UserController::class, 'addSkills'])->name('users.addSkills');
 
 // routes/web.php
@@ -105,3 +108,5 @@ Route::post('users/addSkills', [UserController::class, 'addSkills'])->name('user
 Route::post('/announcements/apply/{announcementId}', [AnnouncementController::class, 'apply'])
     ->middleware('auth') // This middleware ensures the user is authenticated
     ->name('announcements.apply');
+
+

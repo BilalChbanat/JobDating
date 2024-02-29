@@ -30,6 +30,13 @@
                 </a>
             </li>
             <li class="sidebar-item">
+                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('historique')}}"
+                    aria-expanded="false">
+                    <i class="fa fa-columns" aria-hidden="true"></i>
+                     <span class="hide-menu">Applyment</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
                 <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#"
                     aria-expanded="false">
                     <i class="fa fa-columns" aria-hidden="true"></i>

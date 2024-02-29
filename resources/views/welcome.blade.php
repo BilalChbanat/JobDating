@@ -146,7 +146,7 @@
     <!-- Image Showcases-->
     <section class="showcase">
         <div class="container-fluid p-0 d-flex justify-content-around flex-wrap">
-            @foreach ($announcements as $announcement)
+            @foreach ($annonces as $announcement)
                 <div class="card m-3" style="width: 40rem;">
                     <img style="height: 15rem;" class="card-img-top" src="{{ $announcement->img }}"
                         alt="Card image cap">

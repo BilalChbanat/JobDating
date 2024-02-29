@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateLandingRequest;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LandingController extends Controller
 {
@@ -22,27 +23,40 @@ class LandingController extends Controller
     //     return view('welcome', compact('announcements', 'skills'));
     // }
 
-    public function index()
+
+    function index()
     {
-        // Check if the user is authenticated
-        if (Auth::check()) {
-            // Get the authenticated user's skills
-            $userSkills = Auth::user()->skills->pluck('id')->toArray();
 
-            // Get announcements with matching skills
-            $announcements = Announcement::with('skills')
-                ->whereHas('skills', function ($query) use ($userSkills) {
-                    $query->whereIn('id', $userSkills);
+        $annonces = [];
+
+        $annoncesAll = Announcement::with('skills')->get();
+
+        foreach ($annoncesAll as $annonce) {
+
+            $userCount = User::join('skill_user', 'users.id', '=', 'skill_user.user_id')
+                ->join('skills', function ($join) {
+                    $join->on('skills.id', '=', 'skill_user.skill_id');
+                    $join->on('users.id', '=', 'skill_user.user_id');
                 })
-                ->get();
-        } else {
-            // User is not authenticated, show all announcements
-            $announcements = Announcement::all();
+                ->join('announcement_skill', function ($join) {
+                    $join->on('announcement_skill.skill_id', '=', 'skills.id');
+                })
+                ->join('announcements', 'announcements.id', '=', 'announcement_skill.announcement_id')
+                ->where('users.id', auth()->id())
+                ->where('announcements.id', $annonce->id)
+                ->count();
+
+            $annonceCount = Announcement::join('announcement_skill', 'announcements.id', '=', 'announcement_skill.announcement_id')
+                ->join('skills', 'skills.id', '=', 'announcement_skill.skill_id')
+                ->where('announcements.id', $annonce->id)
+                ->count();
+            if ($annonceCount) {
+                if (($userCount / $annonceCount) >= 0.5) {
+                    array_push($annonces, $annonce);
+                }
+            }
         }
-
-        $skills = Skill::all();
-
-        return view('welcome', compact('announcements', 'skills'));
+        return view('welcome', compact('annonces'));
     }
 
 

@@ -19,6 +19,7 @@ function shorten_description($description, $max_words = 7)
 ?>
 
 <table class="table text-nowrap">
+    <span> Most Required Skill is {{$skill}}</span>
     <thead>
         <tr>
             <th class="border-top-0"></th>
